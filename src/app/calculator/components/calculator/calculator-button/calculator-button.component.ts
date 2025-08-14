@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'calculator-button',
@@ -7,8 +7,11 @@ import { ChangeDetectionStrategy, Component, HostBinding, input, OnInit } from '
   styleUrl: './calculator-button.component.scss',
   templateUrl: './calculator-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  //encapsulation: ViewEncapsulation.None,
   host: {
-    class: "w-1/4 border-r border-b border-indigo-400"
+    class: "border-r border-b border-indigo-400",
+    '[class.w-1/4]': '!isEqual()',
+    '[class.w-2/4]': 'isEqual()'
   }
 })
 export class CalculatorButtonComponent {
@@ -20,9 +23,17 @@ export class CalculatorButtonComponent {
     }
   );
 
-  @HostBinding('class.is-command') get commandStyle() {
-    return this.isCommand();
-  };
+  public isEqual = input(false,
+    {
+      transform: (value: boolean | string ) =>
+        typeof value === 'string' ? value === '' : value
+
+    }
+  );
+
+  // @HostBinding('class.is-command') get commandStyle() {
+  //   return this.isCommand();
+  // };
 
 
 }

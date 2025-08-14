@@ -5,3 +5,7 @@ button {
 .is-command {
   @apply bg-indigo-700 bg-opacity-20;
 }
+
+.is-equal{
+  @apply bg-indigo-700 bg-opacity-30 hover:bg-opacity-40;
+}
